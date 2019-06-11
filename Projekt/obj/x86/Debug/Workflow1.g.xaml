@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<local:Workflow1 xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:local="clr-namespace:Projekt;assembly=Projekt" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities" xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Text</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>Microsoft.CSharp</AssemblyReference>
+      <AssemblyReference>Newtonsoft.Json</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ServiceModel.Activities</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>Projekt</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <local:Workflow1.Implementation>
+    <StateMachine>
+      <StateMachine.InitialState>
+        <State x:Name="__ReferenceID0" DisplayName="Menu">
+          <State.Entry>
+            <Sequence DisplayName="Menu">
+              <WriteLine>
+                <InArgument x:TypeArguments="x:String">
+                  <mca:CSharpValue x:TypeArguments="x:String">"Wybierz Miasto:";</mca:CSharpValue>
+                </InArgument>
+              </WriteLine>
+              <WriteLine>
+                <InArgument x:TypeArguments="x:String">
+                  <mca:CSharpValue x:TypeArguments="x:String">" 1-Krakow \n 2-Warszawa \n 3-Wroclaw \n 4-Parczew \n 5-Lublin"</mca:CSharpValue>
+                </InArgument>
+              </WriteLine>
+            </Sequence>
+          </State.Entry>
+          <State.Transitions>
+            <Transition DisplayName="T1">
+              <Transition.Trigger>
+                <Assign>
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">
+                      <mca:CSharpReference x:TypeArguments="x:String">wybor</mca:CSharpReference>
+                    </OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <mca:CSharpValue x:TypeArguments="x:String">Convert.ToString(Console.ReadLine());</mca:CSharpValue>
+                    </InArgument>
+                  </Assign.Value>
+                </Assign>
+              </Transition.Trigger>
+              <Transition.To>
+                <State x:Name="__ReferenceID1" DisplayName="Pogoda">
+                  <State.Entry>
+                    <Sequence>
+                      <local:miasto Level="{x:Null}">
+                        <local:miasto.Wybor>
+                          <InArgument x:TypeArguments="x:String">
+                            <mca:CSharpValue x:TypeArguments="x:String">wybor</mca:CSharpValue>
+                          </InArgument>
+                        </local:miasto.Wybor>
+                      </local:miasto>
+                      <Sequence DisplayName="Zamykanie">
+                        <WriteLine Text="Zakonczyc program? T/N" />
+                        <Assign>
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">
+                              <mca:CSharpReference x:TypeArguments="x:String">wyjscie</mca:CSharpReference>
+                            </OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">
+                              <mca:CSharpValue x:TypeArguments="x:String">Convert.ToString(Console.ReadLine());</mca:CSharpValue>
+                            </InArgument>
+                          </Assign.Value>
+                        </Assign>
+                      </Sequence>
+                    </Sequence>
+                  </State.Entry>
+                  <State.Transitions>
+                    <Transition DisplayName="T2">
+                      <Transition.To>
+                        <State x:Name="__ReferenceID2" DisplayName="ZamykanieProgramu" IsFinal="True" />
+                      </Transition.To>
+                      <Transition.Action>
+                        <Sequence>
+                          <WriteLine Text="Zamykanie..." />
+                          <Delay Duration="00:00:01" />
+                        </Sequence>
+                      </Transition.Action>
+                      <Transition.Condition>
+                        <mca:CSharpValue x:TypeArguments="x:Boolean">wyjscie == "T" || wyjscie == "t"</mca:CSharpValue>
+                      </Transition.Condition>
+                    </Transition>
+                    <Transition DisplayName="T3" To="{x:Reference __ReferenceID0}">
+                      <Transition.Action>
+                        <Sequence>
+                          <Delay Duration="00:00:01" />
+                        </Sequence>
+                      </Transition.Action>
+                      <Transition.Condition>
+                        <mca:CSharpValue x:TypeArguments="x:Boolean">wyjscie == "N" || wyjscie == "n"</mca:CSharpValue>
+                      </Transition.Condition>
+                    </Transition>
+                  </State.Transitions>
+                  <State.Variables>
+                    <Variable x:TypeArguments="x:String" Name="wyjscie" />
+                  </State.Variables>
+                </State>
+              </Transition.To>
+              <Transition.Action>
+                <WriteLine Text="Pododa dla miasta: " />
+              </Transition.Action>
+              <Transition.Condition>
+                <mca:CSharpValue x:TypeArguments="x:Boolean">wybor != null</mca:CSharpValue>
+              </Transition.Condition>
+            </Transition>
+          </State.Transitions>
+        </State>
+      </StateMachine.InitialState>
+      <x:Reference>__ReferenceID0</x:Reference>
+      <x:Reference>__ReferenceID1</x:Reference>
+      <x:Reference>__ReferenceID2</x:Reference>
+      <StateMachine.Variables>
+        <Variable x:TypeArguments="x:String" Name="wybor">
+          <Variable.Default>
+            <mca:CSharpValue x:TypeArguments="x:String">null;</mca:CSharpValue>
+          </Variable.Default>
+        </Variable>
+      </StateMachine.Variables>
+      <sads:DebugSymbol.Symbol>9xAwc97sjLDduSrQQO5qrFROPkQ6XFNUVURJQVxDI1xQcm9qa3RfQyNfVnNlbWVzdHJcUHJvamVrdFxQcm9qZWt0XFdvcmtmbG93MS54YW1sIygDmQESAgEBlAELlAFOAgE2KgeMAQ8CASRKD4IBFwIBBGgXaJEBAgECLAs3FgIBLzwPRxgCASqIAQ+IAVsCASiFAQ+FAWUCASZME2MeAgEVcRdxdgIBEWsXbiICAQx7F3t2AgEJdhd4IgIBBi0NMRkCATMyDTYZAgEwRBVEeAIBLT8VP2ACASuFAU2FAWICASdNFVMkAgEgVBViIAIBFmwZbGkCAQ9tGW1gAgENdxl3YAIBBy8RL2ECATQ0ETSOAQIBMVAbUF4CASFVF1VxAgEeVhdhIAIBF2xYbGYCARBtKW0zAgEOdyl3MwIBCFVWVW4CAR9eHV6AAQIBG1kdWWoCARg=</sads:DebugSymbol.Symbol>
+    </StateMachine>
+  </local:Workflow1.Implementation>
+</local:Workflow1>
